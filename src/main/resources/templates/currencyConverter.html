@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Currency Converter</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:inline="javascript">
+      /*<![CDATA[*/
+      $(document).ready(function() {
+          // List of currencies
+          var currencies = [
+              'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN',
+              'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL',
+              'BSD', 'BTC', 'BTN', 'BWP', 'BYN', 'BYR', 'BZD', 'CAD', 'CDF', 'CHF',
+              'CLF', 'CLP', 'CNY', 'COP', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF',
+              'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP',
+              'GEL', 'GGP', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL',
+              'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'IMP', 'INR', 'IQD', 'IRR', 'ISK',
+              'JEP', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW',
+              'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL',
+              'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR',
+              'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR',
+              'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR',
+              'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD',
+              'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SVC', 'SYP', 'SZL', 'THB', 'TJS',
+              'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD',
+              'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XCD',
+              'XDR', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMK', 'ZWL'
+          ];
+
+          // Generate currency options for select elements
+          var currencyOptions = '';
+          for (var i = 0; i < currencies.length; i++) {
+              var currency = currencies[i];
+              currencyOptions += '<option value="' + currency + '">' + currency + '</option>';
+          }
+
+          // Set currency options for select elements
+          $('#fromCurrency').html(currencyOptions);
+          $('#toCurrency').html(currencyOptions);
+
+          $('form').submit(function(event) {
+              event.preventDefault();
+
+              var amount = $('#amount').val();
+              var fromCurrency = $('#fromCurrency').val();
+              var toCurrency = $('#toCurrency').val();
+
+              $.ajax({
+                  url: '/convert',
+                  type: 'GET',
+                  data: {
+                      amount: amount,
+                      from: fromCurrency,
+                      to: toCurrency
+                  },
+                  success: function(response) {
+                      $('#convertedAmount').text(response.convertedAmount);
+                  },
+                  error: function(xhr, status, error) {
+                      var errorMessage = JSON.parse(xhr.responseText).error;
+                      console.log('Error:', errorMessage);
+                      // Display the error message in an appropriate way (e.g., show an alert)
+                  }
+              });
+          });
+      });
+      /*]]>*/
+  </script>
+</head>
+<body>
+<h1>Currency Converter</h1>
+<form>
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" required>
+
+  <label for="fromCurrency">From Currency:</label>
+  <select id="fromCurrency" required></select>
+
+  <label for="toCurrency">To Currency:</label>
+  <select id="toCurrency" required></select>
+
+  <button type="submit">Convert</button>
+</form>
+
+<h2>Converted Amount:</h2>
+<div id="convertedAmount"></div>
+</body>
+</html>

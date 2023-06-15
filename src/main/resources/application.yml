@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: Currency Converter Application
+  thymeleaf:
+    enabled: true
+  config:
+    import: optional:file:.env[.properties]
+
+server:
+  port: 8080
+
+exchange:
+  api:
+    baseurl: https://api.apilayer.com/exchangerates_data/latest?symbols=
+    access-key: M24lsXrnV5Y730ZjIGaZG4JXjVdS3X1L
