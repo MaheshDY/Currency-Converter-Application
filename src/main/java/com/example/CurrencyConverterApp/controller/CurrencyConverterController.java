@@ -1,16 +1,15 @@
 package com.example.CurrencyConverterApp.controller;
 
+import com.example.CurrencyConverterApp.model.CurrencyConversionRequest;
+import com.example.CurrencyConverterApp.model.CurrencyConversionResponse;
+import com.example.CurrencyConverterApp.service.CurrencyConverterService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
-import com.example.CurrencyConverterApp.model.CurrencyConversionRequest;
-import com.example.CurrencyConverterApp.model.CurrencyConversionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import com.example.CurrencyConverterApp.service.CurrencyConverterService;
 
 @Controller
 @Slf4j
