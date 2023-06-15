@@ -1,11 +1,11 @@
 package com.example.CurrencyConverterApp.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
 import com.example.CurrencyConverterApp.model.CurrencyConversionRequest;
 import com.example.CurrencyConverterApp.model.CurrencyConversionResponse;
 import com.example.CurrencyConverterApp.model.ExchangeRateResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -51,10 +51,6 @@ public class CurrencyConverterService {
       } else {
         throw new IOException("Unexpected response code: " + response.code());
       }
-    }catch (IOException e) {
-      // Handle exception or rethrow it as needed
-      e.printStackTrace();
-      throw e;
     }
   }
 
